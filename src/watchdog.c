@@ -9,13 +9,11 @@
 */
 #include <avr/io.h>
 #include <avr/interrupt.h>
-
 #include <util/delay.h>
-#include <inttypes.h>
-#include <stdlib.h>
+
 
 #define F_CPU (1000000 UL) //Setting the clock speed in delay.h
-#define maxDataLength 8		
+#define maxDataLength 8	
 
 int main(void){
 	cli();     //Disable Global Interrupts
@@ -41,7 +39,7 @@ int main(void){
 ISR(TIMER1_COMPA_vect)  //Die Die Die Timer ISR
 {    
 	//Send kill-signal
-	PORTD |= (1<<PD0);
+	PORTD |= (1<<PD0);  //Setting Pin0 to high
 } 
 
 ISR(){
