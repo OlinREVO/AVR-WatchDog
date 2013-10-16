@@ -20,7 +20,7 @@ int main(void){
 
 	//Set up the WatchDog Death Timer
 	TCCR1B |= 1<<CS11 | 1<<CS10; //Divide by 64
-	OCR1A = 15624 * 2; 			 //Watchdog death timer every 2 seconds
+	OCR1A = 15624 * 4; 			 //Watchdog death timer every 2 seconds
 	TCCR1B |= 1<<WGM12; 		 //Sets death timer in CTC mode
 	TIMSK1 |= 1<<OCIE1A;		 //Enables timer compare interrupt
 
@@ -33,6 +33,12 @@ int main(void){
 	sei();   //Enables Global Interrupts
 
 	while (1){} //Loop Forever
+}
+
+void handleCANmsg(int destID, int msgID, char msg[], int msgLen){
+	//BMS Node
+	msg[]
+	//Motor Controller Node
 }
 
 //Interrupt Service Routines
