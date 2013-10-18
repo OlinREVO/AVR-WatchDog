@@ -7,12 +7,13 @@
  *Watchdog
 
 */
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
 #define F_CPU (1000000 UL) 			 //Setting the clock speed in delay.h
-#define maxDataLength 8	
+#define maxDataLength 8
 
 bool BMSDeath = false;
 bool MCDeath = false;
@@ -55,7 +56,7 @@ ISR(TIMER1_COMPA_vect)  //Die Die Die Timer ISR
 	}
 }
 
-void handleCANmsg(int destID, int msgID, char msg[], int msgLen) {
+void handleCANmsg(uint8_t destID, uint8_t msgID, char msg[], uint8_t msgLen) {
     if (msgID == MSG_voltagelow)
     	BMSDeath = true;
     
