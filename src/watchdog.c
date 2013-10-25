@@ -1,4 +1,4 @@
-/*
+ /*
  *REVO Sensing - WatchDog
  *written by: Chris Lee (@sihrc)
  *9/27/2013
@@ -7,19 +7,21 @@
  *Watchdog
 
 */
+ 
 #include "api.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
+#include <inttypes.h>
 #include <util/delay.h>
-
-#define F_CPU (1000000 UL) 			 //Setting the clock speed in delay.h
+#include <stdlib.h>
+#include <stdio.h>
 #define maxDataLength 8
 
-int BMSDeath = 0;
-int MCDeath = 0;
-int BMSShunt = 0;
+ int BMSDeath = 0;
+ int MCDeath = 0;
+ int BMSShunt = 0;
 
-int main(void){
+ int main(void){
 	cli();     						 //Disable Global Interrupts
 
 	//Set up the WatchDog Death Timer
@@ -57,11 +59,12 @@ ISR(TIMER1_COMPA_vect)  //Die Die Die Timer ISR
 }
 
 void handleCANmsg(uint8_t destID, uint8_t msgID, char msg[], uint8_t msgLen){
-    if (msgID == MSG_voltagelow)
-    	BMSDeath = 1;
-    
-    if (msgID == MSG_shunting)
-    	BMSShunt++;
+	 //printf("%d",MSG_voltagelow);
+	 if (msgID == MSG_voltagelow)
+		BMSDeath = 1;
+
+	if (msgID == MSG_shunting)
+		BMSShunt++;
 }
 
 //From the CAN header
@@ -69,7 +72,7 @@ void handleCANmsg(uint8_t destID, uint8_t msgID, char msg[], uint8_t msgLen){
 /*
 #define NODE_watchdog       0;
 #define NODE_bms            1;
-#define NODE_speedometer    2;
+#define NODE_speedometer    2;=
 #define NODE_halleffect     3;
 #define NODE_sdlogger       4;
 
