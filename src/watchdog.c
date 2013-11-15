@@ -30,7 +30,6 @@
 	TCCR1B |= 1<<WGM12; 		 	 //Sets death timer in CTC mode
 	TIMSK1 |= 1<<OCIE1A;		 	 //Enables timer compare interrupt
 
-
 	//Set up Pins
 	//Kill Signal Pin
 	DDRD |= (1<<PD0);				 //Setting PortD Pin0 as output
@@ -52,9 +51,13 @@ ISR(TIMER1_COMPA_vect)  //Die Die Die Timer ISR
 		MCDeath = 0;
 	}
 	
-	if (BMSShunt > 10){
+	else if (BMSShunt > 10){
 		PORTD |= (1<<PD0);
 		BMSShunt = 0;
+	}
+
+	else {
+		TCNT1 = 0; // Reset timer value 
 	}
 }
 
